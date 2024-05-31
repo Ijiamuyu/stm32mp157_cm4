@@ -1,5 +1,5 @@
 # stm32mp157_cm4
-repository for stm32mp157-cm4 core
+repository for stm32mp157-cm4 core, using cmake, gnu toolchain & openocd build
 
 ## toolchain
 - arm build toolchain:GNU Arm Embedded Toolchain
