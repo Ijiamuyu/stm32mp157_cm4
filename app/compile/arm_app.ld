@@ -10,22 +10,21 @@ _Min_Stack_Size = 0x4000; /* required amount of stack */
 /* Specify the memory areas */
 MEMORY
 {
-RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 320K
-FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 512K
+RAM (xrw)      : ORIGIN = 0x10000000, LENGTH = 384K
 }
 
 /* Define output sections */
 SECTIONS
 {
-  /* The startup code goes first into FLASH */
+  /* The startup code goes first into RAM */
   .isr_vector :
   {
     . = ALIGN(8);
     KEEP(*(.isr_vector)) /* Startup code */
     . = ALIGN(8);
-  } >FLASH
+  } >RAM
 
-  /* The program code and other data goes into FLASH */
+  /* The program code and other data goes into RAM */
   .text :
   {
     . = ALIGN(8);
@@ -40,30 +39,30 @@ SECTIONS
 
     . = ALIGN(8);
     _etext = .;        /* define a global symbols at end of code */
-  } >FLASH
+  } >RAM
 
-  /* Constant data goes into FLASH */
+  /* Constant data goes into RAM */
   .rodata :
   {
     . = ALIGN(8);
     *(.rodata)         /* .rodata sections (constants, strings, etc.) */
     *(.rodata*)        /* .rodata* sections (constants, strings, etc.) */
     . = ALIGN(8);
-  } >FLASH
+  } >RAM
 
   .ARM.extab   : 
   { 
   . = ALIGN(8);
   *(.ARM.extab* .gnu.linkonce.armextab.*)
   . = ALIGN(8);
-  } >FLASH
+  } >RAM
   .ARM : {
 	. = ALIGN(8);
     __exidx_start = .;
     *(.ARM.exidx*)
     __exidx_end = .;
 	. = ALIGN(8);
-  } >FLASH
+  } >RAM
 
   .preinit_array     :
   {
@@ -72,7 +71,7 @@ SECTIONS
     KEEP (*(.preinit_array*))
     PROVIDE_HIDDEN (__preinit_array_end = .);
 	. = ALIGN(8);
-  } >FLASH
+  } >RAM
   
   .init_array :
   {
@@ -82,7 +81,7 @@ SECTIONS
     KEEP (*(.init_array*))
     PROVIDE_HIDDEN (__init_array_end = .);
 	. = ALIGN(8);
-  } >FLASH
+  } >RAM
 
   .fini_array :
   {
@@ -92,7 +91,7 @@ SECTIONS
     KEEP (*(.fini_array*))
     PROVIDE_HIDDEN (__fini_array_end = .);
 	. = ALIGN(8);
-  } >FLASH
+  } >RAM
 
   /* used by the startup to initialize data */
   _sidata = LOADADDR(.data);
@@ -107,7 +106,7 @@ SECTIONS
 
     . = ALIGN(8);
     _edata = .;        /* define a global symbol at data end */
-  } >RAM AT> FLASH
+  } >RAM
 
   /* Uninitialized data section */
   . = ALIGN(4);
