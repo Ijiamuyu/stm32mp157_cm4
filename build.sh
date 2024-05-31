@@ -4,7 +4,7 @@ CMD=$1
 TARGET=$2
 ARCH=arm
 PROJECT_PATH=${PWD}
-PROJECT=ezos
+PROJECT=armcm4
 
 function show_help()
 {
